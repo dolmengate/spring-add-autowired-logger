@@ -25,7 +25,7 @@ repos = [
     # 'organization-api',
     # 'organizationgroup-api',
     # 'person-api',
-    'role-api',
+    # 'role-api',
     # 'tag-api'
     # 'issuesby100m-api',
     # 'issuesby5m-api',
@@ -39,14 +39,13 @@ def refactor_classfile(lines: List[str]):
 
     # add Logger field
     # todo return added field
-    perfec2.add_field(perfec2.this_clazz(), 'Logger', 'log', 'private', lines, 'Autowired')
-    perfec2.field_spacing(perfec2.util.get_field(perfec2.this_clazz(), 'log'), lines)
+    perfec2.add_field(perfec2.this_clazz(), 'Logger', 'log', 'private', lines, '')  #fixme unused last argument
+    perfec2.add_field_annotation(perfec2.util.field_with_name(perfec2.this_clazz(), 'log'), 'Autowired', lines)
 
     # remove all @Slf4j
     perfec2.remove_all_anno('Slf4j', lines)
 
     # add imports:
-
     perfec2.add_import('org.springframework.beans.factory.annotation.Autowired', lines)
     return perfec2.add_import('org.slf4j.Logger', lines)
 
